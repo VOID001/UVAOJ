@@ -57,27 +57,25 @@ void solve()
 	T = 60 /(smax+2);
 	R = n / T;
 	int rest = n%T;
-	int oo = 1;
+	if (rest) R++;
 	qsort(ls, n, sizeof(ls[0]), cmp_string);
-	for (int i = 0; i < R; i++)
+	for (int i = 0; i < (rest == 0 ? R:R-1); i++)
 	{
 		for (int j = 0; j < T; j++)
 		{
 			int len = strlen(ls[i + j*R]);
 			printf("%s  ", ls[i + j*R]);
 			for (int pt = 0; pt < smax - len; pt++) printf(" ");
-			oo++;
 		}
 		printf("\n");
 	}
-	if (oo < n)
+	if (rest)
 	{
-		for (int i = 0; oo < n; i++)
+		for (int i = 0; i<rest; i++)
 		{
-			int len = strlen(ls[R + i*R]);
-			printf("%s  ");
+			int len = strlen(ls[R + i*R-1]);
+			printf("%s  ",ls[R+i*R-1]);
 			for (int pt = 0; pt < smax - len; pt++) printf(" ");
-			oo++;
 		}
 	}
 	printf("\n");
