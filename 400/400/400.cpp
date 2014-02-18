@@ -3,18 +3,22 @@
 #include<string.h>
 #include<stdlib.h>
 #include<string.h>
-#define MAX 110
+#define MAX 1100
 
 int cmp_string(const void*a, const void* b);
 void ptdash();				//Print ----------...
 int read_in();
 void solve();
 
-char ls[MAX][61];
+char ls[MAX][80];
 int n, R, T, smax;
 
 int main(void)
 {
+#ifdef LOCAL
+	//freopen("400.in", "r", stdin);
+	freopen("400.out", "w", stdout);
+#endif
 	while (read_in())
 	{
 		ptdash();
@@ -55,6 +59,7 @@ int read_in()
 void solve()
 {
 	T = 60 /(smax+2);
+	if (!T) T++;
 	R = n / T;
 	int rest = n%T;
 	if (rest) R++;
@@ -74,10 +79,9 @@ void solve()
 		for (int i = 0; i<rest; i++)
 		{
 			int len = strlen(ls[R + i*R-1]);
-			printf("%s  ",ls[R+i*R-1]);
-			for (int pt = 0; pt < smax - len; pt++) printf(" ");
+			printf("%s",ls[R+i*R-1]);
+			if (i != rest - 1){ printf("  "); for (int pt = 0; pt < smax - len; pt++) printf(" "); }
 		}
 	}
-	printf("\n");
 	return ;
 }
