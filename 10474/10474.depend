@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1391861406 source:f:\eric\c1\uvaoj\10474\main.cpp
+	<stdio.h>
+	<vector>
+	<algorithm>
+	<iostream>
+	<stdlib.h>
+	<queue>
+	<list>
+

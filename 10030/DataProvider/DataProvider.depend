@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1387954014 source:f:\eric\c1\uvaoj\10030\dataprovider\main.cpp
+	<stdio.h>
+	<time.h>
+	<stdlib.h>
+

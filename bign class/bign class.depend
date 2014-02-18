@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1390919014 source:f:\eric\c1\uvaoj\bign class\main.cpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<string>
+

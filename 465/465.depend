@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1391239583 source:f:\eric\c1\uvaoj\465\main.cpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+
