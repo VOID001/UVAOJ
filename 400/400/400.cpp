@@ -71,7 +71,8 @@ void solve()
 		{
 			int len = strlen(ls[i + j*R]);
 			printf("%s", ls[i + j*R]);
-			if (j != T - 1){ printf("  ");  for (int pt = 0; pt < smax - len; pt++) printf(" "); }
+			if (j != T - 1){ printf("  "); }
+			for (int pt = 0; pt < smax - len; pt++) printf(" ");
 		}
 		printf("\n");
 	}
@@ -81,8 +82,10 @@ void solve()
 		{
 			int len = strlen(ls[R + i*R-1]);
 			printf("%s",ls[R+i*R-1]);
-			if (i != rest - 1){ printf("  "); for (int pt = 0; pt < smax - len; pt++) printf(" "); }
+			printf("  ");
+			for (int pt = 0; pt < smax - len; pt++) printf(" ");
 		}
+		printf("\n");
 	}
 	return ;
 }
