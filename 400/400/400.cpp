@@ -53,6 +53,7 @@ int read_in()
 		int len = strlen(ls[i]);
 		if (smax < len) smax = len;
 	}
+
 	return 1;									//Õı³£·µ»Ø
 }
 
@@ -69,8 +70,8 @@ void solve()
 		for (int j = 0; j < T; j++)
 		{
 			int len = strlen(ls[i + j*R]);
-			printf("%s  ", ls[i + j*R]);
-			for (int pt = 0; pt < smax - len; pt++) printf(" ");
+			printf("%s", ls[i + j*R]);
+			if (j != T - 1){ printf("  ");  for (int pt = 0; pt < smax - len; pt++) printf(" "); }
 		}
 		printf("\n");
 	}
