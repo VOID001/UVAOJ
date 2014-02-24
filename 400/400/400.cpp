@@ -1,91 +1,82 @@
+//		400 完全重写
+//		考虑到 60/60+2=0这个情况 考虑到 空格输出的情况 
+//		在耽误了4天之后继续写代码 ！！！！！
+
 #define LOCAL
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include<string.h>
-#define MAX 1100
 
-int cmp_string(const void*a, const void* b);
-void ptdash();				//Print ----------...
+//Function Prototype
 int read_in();
 void solve();
+int cmp(const void *a, const void *b);
+//END
 
-char ls[MAX][80];
-int n, R, T, smax;
+#define MAX 110
+char ls[MAX][65];			//排序前存储的位置
+int n;
+int maxlen;
 
 int main(void)
 {
-#ifdef LOCAL
-	//freopen("400.in", "r", stdin);
-	freopen("400.out", "w", stdout);
-#endif
 	while (read_in())
 	{
-		ptdash();
 		solve();
 	}
 	return 0;
 }
 
-int cmp_string(const void *a, const void *b)
-{
-	char* stra = (char*)a;
-	char* strb = (char*)b;
-	return strcmp(stra, strb);
-}
-
-void ptdash()
-{
-	for (int pt = 1; pt <= 60; pt++) printf("-");
-	printf("\n");
-	return ;
-}
-
 int read_in()
 {
+	maxlen = 0;
 	memset(ls, 0, sizeof(ls));
 	int st=scanf("%d", &n);
-	if (st == EOF) return 0;
-	smax = 0;
+	if (st==EOF) return 0;
 	for (int i = 0; i < n; i++)
 	{
 		scanf("%s", ls[i]);
-		int len = strlen(ls[i]);
-		if (smax < len) smax = len;
+		if (maxlen < strlen(ls[i])) maxlen = strlen(ls[i]);
 	}
+	return 1;
+}
 
-	return 1;									//正常返回
+int cmp(const void *a, const void *b)
+{
+	char *sa = (char*)a;
+	char *sb = (char*)b;
+	return strcmp(sa, sb);
 }
 
 void solve()
 {
-	T = 60 /(smax+2);
+	qsort(ls, n, sizeof(ls[0]), cmp);
+
+	for (int cnt = 0; cnt < 60; cnt++) printf("-");
+	printf("\n");						//打印六十个横线
+	//int res = 60 %(maxlen + 2);
+	int  T = 60 / (maxlen + 2);
 	if (!T) T++;
-	R = n / T;
-	int rest = n%T;
-	if (rest) R++;
-	qsort(ls, n, sizeof(ls[0]), cmp_string);
-	for (int i = 0; i < (rest == 0 ? R:R-1); i++)
+	int res = n%T;
+	int lines = n / T;
+	if (res) lines++;
+
+	for (int i = 0; i < lines; i++)
 	{
 		for (int j = 0; j < T; j++)
 		{
-			int len = strlen(ls[i + j*R]);
-			printf("%s", ls[i + j*R]);
-			if (j != T - 1){ printf("  "); }
-			for (int pt = 0; pt < smax - len; pt++) printf(" ");
+			//char *tmp = "";
+			//strcpy(tmp, ls[i + T*j]);
+			int len = strlen(ls[i + (lines)*j]);
+			if (!strcmp(ls[i + (lines)*j], ""))break;
+			printf("%s", ls[i + (lines)*j]);
+			for (int i = 1; i <= maxlen - len; i++) printf(" ");
+			if (j < T - 1) printf("  ");
 		}
 		printf("\n");
 	}
-	if (rest)
-	{
-		for (int i = 0; i<rest; i++)
-		{
-			int len = strlen(ls[R + i*R-1]);
-			printf("%s",ls[R+i*R-1]);
-			printf("  ");
-			for (int pt = 0; pt < smax - len; pt++) printf(" ");
-		}
-		printf("\n");
-	}
-	return ;
+	return;
 }
+
+
+// /经历了各种问题之后终于一次过了 哈哈 ~~~~~~~ 剑秋还要努力哦！！！
