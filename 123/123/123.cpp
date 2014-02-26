@@ -1,42 +1,46 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <map>
-#include <set>
-#include <cctype>
-#include <algorithm>
+#include<cstdio>
+#include<string>
+#include<iostream>
+#include<algorithm>
+#include<set>
+#include<map>
+#include<cctype>
+#define MAX 220
 using namespace std;
-const int maxn = 220;
 
-int main() {
-	string k, st;
-	int a = 0;
-	set<string> o;
-	multimap<string, string> r;
-	while (cin >> k && k != "::")
-		o.insert(k);
-	getchar();
-	while (getline(cin, st)) {
-		for (int i = 0; i < st.size(); i++)
-			st[i] = tolower(st[i]);
-		for (int i = 0; i < st.size(); i++) {
-			if (!isalpha(st[i])) continue;
-			string t;
-			int rec = i;
-			while (i < st.size() && isalpha(st[i]))
-				t += st[i++];
-			//cout << t << " " << endl;;
-			if (!o.count(t)) {								//如果这个集合o里 有t那么就不执行 没有的话说明是关键词 执行
-				cout << t << " " << endl;
-				for (int j = 0; j < t.size(); j++)
-					t[j] = toupper(t[j]);
-				string temp = st;							//产生标题字串副本
-				temp.replace(rec, t.size(), t);				//用replace把标题字串temp中 与关键子字串位置相同的字符替换为 t 
-				r.insert(make_pair(t, temp));
+int main(void)
+{
+	set<string> ig;
+	string igs;							//忽略列表
+	string title;						//标题列表
+	multimap<string, string> res;
+	while (cin >> igs && igs != "::")
+		ig.insert(igs);
+	getchar();							//吃回车 
+	while (getline(cin, title))
+	{
+		int len = title.size();
+		for (int i = 0; i < len; i++)
+			title[i] = tolower(title[i]);
+		for (int i = 0; i < len; i++)
+		{
+			if (!isalpha(title[i])) continue;
+			string key;								//记录关键词的字符串-- key
+			int current_pos = i;					//记录当前位置 好便于下面的替换 把关键词替换为大写
+			while (i < title.size() && isalpha(title[i]))
+				key += title[i++];					//把关键词copy到key 这时就体现了String类的方便
+			if (!ig.count(key))
+			{
+				int len0 = key.size();
+				for (int j = 0; j < len0; j++)
+					key[j] = toupper(key[j]);
+				string tmp = title;
+				tmp.replace(current_pos, key.size(), key);
+				res.insert(make_pair(key,tmp));								//因为multimap是一对儿 所以插入要用 make_pair
 			}
 		}
 	}
-	for (multimap<string, string>::iterator i = r.begin(); i != r.end(); i++)		//multimap本身就是排好序的 但是依靠什么顺序还要研究
+	for (multimap<string, string>::iterator i = res.begin(); i != res.end(); i++)
 		cout << i->second << endl;
 	getchar();
 	return 0;
