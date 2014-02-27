@@ -1,3 +1,4 @@
+#define LOCAL
 #include<stdio.h>
 #include<iostream>
 #include<string>
@@ -10,7 +11,9 @@ string refer = "ABCDEFGHIJKLMNOPRSTUVWXY";
 
 int main(void)
 {
+#ifdef LOCAL
 	freopen("755.out", "w", stdout);
+#endif
 	int cases;
 	int lines;
 	map<string, int> numlst;
@@ -37,31 +40,33 @@ int main(void)
 				}
 				else telNUM += telnum[j];
 			}
-			if (!numlst.count(telNUM))
+			map<string, int>::iterator fndit=numlst.find(telNUM);
+			if (fndit==numlst.end())
 				numlst.insert(make_pair(telNUM, 1));
 			else
 			{
-				for (map<string, int>::iterator ii = numlst.begin(); ii != numlst.end(); ii++)
-				{
-					if ((*ii).first == telNUM) { (*ii).second++; break; }
-				}
+				(*fndit).second++;
 			}
 		}
+		int ok = 0;
 		for (map<string, int>::iterator ii = numlst.begin(); ii != numlst.end(); ii++)
 		{
 			if ((*ii).second != 1)
 			{
-				for (int j = 0; j < 8; j++)
+				ok = 1;
+				bool have = 0;
+				for (int j = 0; j < 7; j++)
 				{
-					if (j == 3) printf("-");
-					else printf("%c", (*ii).first[j]);
+					if (j == 3)  printf("-");
+					printf("%c", (*ii).first[j]);
 				}
 				printf(" %d\n", (*ii).second);
 				//printf("\n");
 			}
 		}
-		printf("\n");
+		if (!ok) printf("No duplicates.\n");
+		if(oo<cases-1) printf("\n");
 	}
-	while (1) getchar();
+	//while (1) getchar();
 	return 0;
 }

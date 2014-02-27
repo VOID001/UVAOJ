@@ -1,47 +1,48 @@
 #include<cstdio>
+#include<cctype>
 #include<string>
 #include<iostream>
-#include<algorithm>
-#include<set>
-#include<map>
-#include<cctype>
-#define MAX 220
+#include<map>			//multimap 必需
+#include<set>			//set
+#include<algorithm>		//count 必需
 using namespace std;
+
 
 int main(void)
 {
-	set<string> ig;
-	string igs;							//忽略列表
-	string title;						//标题列表
-	multimap<string, string> res;
+	set<string> ig;						//忽略集合
+	multimap<string, string> res;		//结果集合
+	string igs;							//读取忽略字串
+	string title;						//读取标题字串
 	while (cin >> igs && igs != "::")
 		ig.insert(igs);
-	getchar();							//吃回车 
+	getchar();							//别忘了吃回车
 	while (getline(cin, title))
 	{
-		int len = title.size();
-		for (int i = 0; i < len; i++)
+		for (int i = 0; i < title.size(); i++)
 			title[i] = tolower(title[i]);
-		for (int i = 0; i < len; i++)
+		for (int i = 0; i < title.size(); i++)
 		{
 			if (!isalpha(title[i])) continue;
-			string key;								//记录关键词的字符串-- key
-			int current_pos = i;					//记录当前位置 好便于下面的替换 把关键词替换为大写
+			string key;					//存放关键词
+			int cur_pos = i;			//自己写代码又忘了这个部分 记好~~ 
 			while (i < title.size() && isalpha(title[i]))
-				key += title[i++];					//把关键词copy到key 这时就体现了String类的方便
+			{
+				key += title[i++];
+			}
 			if (!ig.count(key))
 			{
-				int len0 = key.size();
-				for (int j = 0; j < len0; j++)
-					key[j] = toupper(key[j]);
 				string tmp = title;
-				tmp.replace(current_pos, key.size(), key);
-				res.insert(make_pair(key,tmp));								//因为multimap是一对儿 所以插入要用 make_pair
+				for (int j = 0; j < key.size(); j++)
+					key[j] = toupper(key[j]);
+				tmp.replace(cur_pos, key.size(), key);
+				res.insert(make_pair(key, tmp));
 			}
 		}
 	}
 	for (multimap<string, string>::iterator i = res.begin(); i != res.end(); i++)
 		cout << i->second << endl;
-	getchar();
 	return 0;
 }
+
+//算是自己背着写的吧 。。理解了是理解了 自己想写出这种代码需要很好的功底
