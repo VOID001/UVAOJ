@@ -28,6 +28,7 @@ int main(void)
 	{
 		int i;
 		double catnum=0;
+		if(H==W && H==1) {printf("0 1\n"); continue;};
 		for(i=1;;i++)
 		{
 			double tmpres=pow((1+pow(W,1.0/i)),i);
@@ -39,11 +40,15 @@ int main(void)
 		{
 			Hsum+=H*pow(N/(N+1),j*1.0);
 		}
-		catnum=(pow(N,i)-1)/(N-1);
+		for(int j=0;j<=i-1;j++)
+		{
+			catnum+=pow(N,j);
+		}
+		//catnum=(pow(N,i)-1)/(N-1);
 		//cout<<catnum<<" "<<H<<endl;
 		printf("%.0lf %.0lf\n",catnum,Hsum);
 	}
 }
 
 
-//TLE
+//考虑一下特殊情况就好
