@@ -155,7 +155,7 @@ int main(void)
 		}
 		if(i<matches-1) printf("\n");
 	}
-	//getchar();
+	getchar();
 	return 0;
 }
 
